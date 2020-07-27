@@ -1,0 +1,3 @@
+include ':Mylib'
+rootProject.name='LearnAndroid'
+include ':app'
