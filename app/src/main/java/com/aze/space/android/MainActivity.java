@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setAction("lesson.ActivityOne");
+                intent.setAction("fragment.FragmentActivit");
                 startActivity(intent);
             }
         });
