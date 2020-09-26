@@ -3,15 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
 
-
     defaultConfig {
         applicationId "com.example.learnandroid"
         minSdkVersion 28
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BUILD_TIME", getBuildTime())
     }
 
     buildTypes {
@@ -21,6 +20,39 @@ android {
         }
     }
 
+    flavorDimensions 'project'
+    productFlavors {
+        paid {
+            dimension 'project'
+            versionCode 1
+            minSdkVersion 24
+        }
+        free {
+            dimension 'project'
+            versionCode 1
+            minSdkVersion 23
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            //只处理release版本
+            //if(buildType.name == 'release') {
+            //if(buildType.name.equals('release')) {
+            def createTime = new Date().format("YYYYMMdd", TimeZone.getTimeZone("GMT+08:00"))
+            //output.outputFile是appName-release.apk
+            def name = output.outputFile.name, ext = "";
+            //返回-1表示没找到
+            def dotIndex = name.indexOf(".")
+            if(dotIndex != -1) {
+                ext = name.substring(dotIndex);
+                name = name.substring(0, dotIndex)
+            }
+            outputFileName = "${name}_v${defaultConfig.versionName}_${createTime}${ext}";
+            //name + "_v" + defaultConfig.versionName + "_" +  + ext;
+            //}
+        }
+    }
 }
 
 dependencies {
@@ -29,7 +61,20 @@ dependencies {
 
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.13'
 
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+}
+
+/**
+ * 获取编译时间
+ */
+String getBuildTime() {
+    Date date = new Date();
+    //中国用的是东八区时间，数值上是在UTC时间上加8
+    //String dateStr = "\"" + date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("UTC")) + "\"";
+    String dateStr = "\"" + date.format("yyyy-MM-dd HH:mm:ss") + "\"";
+    return dateStr;
 }

@@ -7,18 +7,17 @@
         android:id="@+id/btn_activity1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start One" />
+        android:text="Start FragmentActivit" />
 
     <Button
         android:id="@+id/btn_activity2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Two"/>
+        android:text="Start HandlerActivity"/>
 
     <Button
         android:id="@+id/btn_activity3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Three"/>
-
+        android:text="Start AsyncTaskActivity"/>
 </LinearLayout>

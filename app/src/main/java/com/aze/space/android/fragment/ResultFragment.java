@@ -17,7 +17,6 @@ public class ResultFragment extends Fragment {
     public ResultFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
